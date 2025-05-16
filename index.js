@@ -60,7 +60,6 @@ async function transformData(serverStats, systemStats) {
   var icon = Buffer.from(response.data).toString('base64');
   return {
     servers: serverStats.map((server) =>{
-      console.log(server);
       return {
         name: server.server_id.server_name,
         // image: server.icon || icon,
@@ -77,12 +76,30 @@ async function transformData(serverStats, systemStats) {
     }),
   }
 }
-
-app.get('/stats', async (req, res) => {
+async function getFriendlyStats(){
   const stats = await getPlayerStats();
   const friendly = await transformData(stats.serverStats, stats.systemStats);
   fs.writeFileSync('./stats.json', JSON.stringify(friendly, null, 2));
-  res.json(friendly);
+  return friendly;
+}
+
+app.get('/stats', async (req, res) => res.json(await getFriendlyStats()));
+app.get('/', async (req, res) => {
+  var response = "<!DOCTYPE html><html><head><title>My Web Page</title></head><body><h1>My Web Page</h1><br>";
+  var stats = await getFriendlyStats();
+  response += `<table border="1"><tr><th>Name</th><th>Players</th><th>Max</th><th>Version</th><th>MOTD</th><th>Online</th></tr>`;
+  stats.servers.forEach((server) => {
+    response += `<tr>
+      <td>${server.name}</td>
+      <td>${server.online ? server.players.length : ""}</td>
+      <td>${server.online ? server.maxPlayers : ""}</td>
+      <td>${server.online ? server.version : ""}</td>
+      <td>${server.online ? server.motd : ""}</td>
+      <td>${server.online ? "Online" : "Offline"}</td>
+    `;
+  })
+  response += `</table></body></html>`;
+  res.send(response);
 });
 
 app.use((err, req, res, next) => {
