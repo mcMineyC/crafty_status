@@ -1,8 +1,10 @@
-export const prerender = false;
-import axios from "axios";
-import fs from "fs";
-import https from "https";
-import config from "../../config.json";
+const axios = require('axios');
+const fs = require('fs');
+const express = require('express');
+const https = require('https');
+
+const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+const PORT = config.port || 3000;
 
 const api = axios.create({
   httpsAgent: new https.Agent({
@@ -14,6 +16,10 @@ const api = axios.create({
     'Content-Type': 'application/json'
   },
 });
+
+const app = express();
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 async function getPlayerStats() {
     try {
         // First get system-wide stats
@@ -70,18 +76,51 @@ async function transformData(serverStats, systemStats) {
     }),
   }
 }
-export async function getFriendlyStats(){
+async function getFriendlyStats(){
   const stats = await getPlayerStats();
   const friendly = await transformData(stats.serverStats, stats.systemStats);
   fs.writeFileSync('./stats.json', JSON.stringify(friendly, null, 2));
   return friendly;
 }
 
-export async function GET({ params }) {
-  return new Response(JSON.stringify(await getFriendlyStats()), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+app.get('/stats', async (req, res) => res.json(await getFriendlyStats()));
+app.get('/', async (req, res) => {
+  var response = "<!DOCTYPE html><html><head><title>Server Status</title></head><body><h1>Server Status</h1><br>";
+  var stats = await getFriendlyStats();
+  response += `<table border="1"><tr><th>Name</th><th>Players</th><th>Max</th><th>Version</th><th>MOTD</th><th>Online</th></tr>`;
+  stats.servers.forEach((server) => {
+    response += `<tr>
+      <td>${server.name}</td>
+      <td>${server.online ? server.players.length : ""}</td>
+      <td>${server.online ? server.maxPlayers : ""}</td>
+      <td>${server.online ? server.version : ""}</td>
+      <td>${server.online ? server.motd : ""}</td>
+      <td>${server.online ? "Online" : "Offline"}</td>
+    `;
+  })
+  response += `</table></body></html>`;
+  res.send(response);
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("<center><h1>500 - Internal Server Error</h1><br><h3>"+err.message+"</h3></center>");
+});
+
+// Example usage
+async function main() {
+    const craftyUrl = config.url;
+    const authToken = config.apikey;
+
+    try {
+        const stats = await getPlayerStats();
+        // console.log('System Statistics:', stats.systemStats);
+        console.log('Server Statistics:', stats.serverStats);
+    } catch (error) {
+        console.error('Failed to retrieve statistics:', error.message);
+    }
 }
+
+app.listen(PORT, config.ip || "127.0.0.1", () => {
+    console.log(`Server running on http://${config.ip || "127.0.0.1"}:${PORT}`);
+});
