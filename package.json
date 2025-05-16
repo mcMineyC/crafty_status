@@ -1,5 +1,7 @@
 {
   "name": "crafty_status",
+  "version": "1.0.0",
+  "description": "A simple node.js server to serve the stats for a crafty controller server in a machine-readable format without client-side authentication",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -8,8 +10,25 @@
     "preview": "astro preview",
     "astro": "astro"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcMineyC/crafty_status.git"
+  },
+  "keywords": [
+    "minecraft",
+    "status",
+    "public",
+    "secure",
+    "craftycontroller"
+  ],
+  "author": "mcMineyC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcMineyC/crafty_status/issues"
+  },
+  "homepage": "https://github.com/mcMineyC/crafty_status#readme",
   "dependencies": {
-    "astro": "^5.7.13",
-    "axios": "^1.9.0"
+    "axios": "^1.9.0",
+    "astro": "^5.7.13"
   }
 }
