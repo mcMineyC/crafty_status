@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minecraft Multiplayer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 50px;
+        }
+
+        .server-list {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .server-item {
+            background: #222;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .server-item:hover {
+            background: #333;
+        }
+
+        .server-info {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .server-name {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .server-status {
+            color: #888;
+            font-style: italic;
+        }
+
+        .server-version {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Minecraft Multiplayer</h1>
+        </div>
+
+        <div class="server-list">
+            <!-- Example server items -->
+            <div class="server-item">
+                <div class="server-info">
+                    <span class="server-name">Hypixel</span>
+                    <span class="server-status">Online</span>
+                    <span class="server-version">1.18.2</span>
+                </div>
+            </div>
+            
+            <div class="server-item">
+                <div class="server-info">
+                    <span class="server-name">Mineplex</span>
+                    <span class="server-status">Online</span>
+                    <span class="server-version">1.18.2</span>
+                </div>
+            </div>
+
+            <div class="server-item">
+                <div class="server-info">
+                    <span class="server-name">Local Server</span>
+                    <span class="server-status">Offline</span>
+                    <span class="server-version">1.18.2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Version 1.18.2
+        </div>
+    </div>
+</body>
+</html>

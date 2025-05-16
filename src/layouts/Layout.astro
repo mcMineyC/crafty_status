@@ -1,22 +1,67 @@
+---
+---
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/dirt.png" type="image/png" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Server Status</title>
 	</head>
 	<body>
-		<slot />
+		<div class="clearfix full" style="display: flex; flex-direction: column;">
+			<slot />
+		</div>
 	</body>
 </html>
 
 <style>
+	@font-face {
+		font-family:"Minecraft";
+		src: url("/fonts/1_Minecraft-Regular.woff") format("woff"),
+			 url("/fonts/1_Minecraft-Regular.ttf") format("truetype");
+		font-weight:normal;
+		font-style:normal;
+	}
+	.full{
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.clearfix{
+		overflow: auto;
+	}
+	 .clearfix::after {
+		content: "";
+		clear: both;
+		display: table;
+	}
 	html,
 	body {
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		background-color: #000000C0;
+		color: whitesmoke;
+		font-family: "Minecraft", "Arial";
+		font-weight: normal;
+	}
+	html {
+		background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAFVBMVEW5hVyHh4eWbEpsbGx0WER5VTpZPSnqDkA3AAAAbklEQVR42hXLwQnDQAwEwOVA7uDyNgq6AtJD/mLD6m0Muv5LCJ7/YES6OhNsvjLGhpXJtA1vW+nMQJy31o+Ncu4uJUwzDSQE13I5giyGGuxqCQTTxnX4RPDkJ+5ChZskgPp6HemIqwp8+ojp8voDZ2EdYwBe7AYAAAAASUVORK5CYII=");
+		background-repeat: repeat;
+		background-size: 64px 64px;
+		image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+		image-rendering: -moz-crisp-edges;          /* Firefox                        */
+		image-rendering: -o-crisp-edges;            /* Opera                          */
+		image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+		image-rendering: pixelated;                 /* Universal support since 2021   */
+		image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+		-ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+		min-height: 100vh;
+  	}
+
+	body {
+
 	}
 </style>
