@@ -1,5 +1,5 @@
 export const prerender = false;
-import { getProduct } from "../db";
+import axios from "axios";
 
 export async function GET({ params }) {
   const id = params.id;
