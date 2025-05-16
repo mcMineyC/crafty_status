@@ -73,7 +73,6 @@ async function transformData(serverStats, systemStats) {
 export async function getFriendlyStats(){
   const stats = await getPlayerStats();
   const friendly = await transformData(stats.serverStats, stats.systemStats);
-  fs.writeFileSync('./stats.json', JSON.stringify(friendly, null, 2));
   return friendly;
 }
 
