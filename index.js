@@ -85,7 +85,7 @@ async function getFriendlyStats(){
 
 app.get('/stats', async (req, res) => res.json(await getFriendlyStats()));
 app.get('/', async (req, res) => {
-  var response = "<!DOCTYPE html><html><head><title>My Web Page</title></head><body><h1>My Web Page</h1><br>";
+  var response = "<!DOCTYPE html><html><head><title>Server Status</title></head><body><h1>Server Status</h1><br>";
   var stats = await getFriendlyStats();
   response += `<table border="1"><tr><th>Name</th><th>Players</th><th>Max</th><th>Version</th><th>MOTD</th><th>Online</th></tr>`;
   stats.servers.forEach((server) => {
