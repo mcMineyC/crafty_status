@@ -10,20 +10,17 @@ const data = await response.json();
 ))}
 
 <style>
-    div[data-tippy-root]{
-        font-size: 200px;
-        background-color: #0F000E !important;
-        border: 1px solid #23005A !important;
-        color: #EFEFEF !important;
-    }
 </style>
 
 <script>
     import tippy from 'tippy.js';
+    import 'tippy.js/themes/light.css';
+    import '../tippy_theme.css';
     tippy('[data-tippy-content]', {
         duration: 0,
         arrow: false,
-        theme: "light",
+        interactive: true,
+        theme: "minecraft",
         hideOnClick: false,
         placement: "top-end",
     });

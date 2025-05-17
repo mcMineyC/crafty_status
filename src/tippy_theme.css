@@ -1,0 +1,9 @@
+.tippy-box[data-theme~='minecraft'] {
+    background-color: #0F000E !important;
+    border: 2px solid #23005A !important;
+    color: #EFEFEF !important;
+    padding: 6px;
+}
+.tippy-box[data-theme~='nope'] {
+    display: none !important;
+}
