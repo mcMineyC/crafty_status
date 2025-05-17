@@ -31,7 +31,7 @@ const {server} = Astro.props;
     }
 
 </style>
-<div class="server-entry" data-tippy-content="Hello">
+<div class="server-entry" data-tippy-content={server.players.join("<br>")}>
     <div>
         <Image class="server-image" src="/dirt.png" alt="Dirt icon" width=64 height=64></Image>
     </div>
