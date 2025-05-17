@@ -1,0 +1,27 @@
+---
+export const prerender = false;
+import { GET } from "../pages/stats.js";
+import ServerEntry from "./server_entry.astro";
+let response = await GET(Astro);
+const data = await response.json();
+---
+{data.servers.map((server) => (
+    <ServerEntry server={server}/>
+))}
+<script>
+    import tippy from 'tippy.js';
+    tippy('[data-tippy-content]', {
+        duration: 0,
+        arrow: false,
+        allowHTML: true,
+        theme: "custom",
+    });
+</script>
+
+<style>
+    .tippy-box[data-theme~="custom"]{
+        background-color: #0F000E;
+        border: 1px solid #23005A;
+        color: #EFEFEF;
+    }
+</style>

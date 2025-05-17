@@ -1,9 +1,0 @@
----
-export const prerender = false;
-import { GET } from "../pages/stats.js";
-let response = await GET(Astro);
-const data = await response.json();
----
-{data.servers.map((server) => (
-    <h2>{server.name}</h2>
-))}

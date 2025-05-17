@@ -1,0 +1,51 @@
+---
+import {Image} from "astro:assets";
+const {server} = Astro.props;
+---
+<style>
+    .offline-text{
+        color: #A90000;
+    }
+    .version-text{
+        color: #FF5454;
+    }
+    .server-motd{
+        color: #7F7F7F;
+    }
+    div{
+        display: flex;
+    }
+    .server-entry{
+        max-width: 600px;
+        width: 100%;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        flex-direction: row;
+        font-size: 18px;
+    }
+    .server-image{
+        margin-right: 6px;
+    }
+    .server-status-image{
+        margin-left: 6px;
+    }
+
+</style>
+<div class="server-entry" data-tippy-content="Hello">
+    <div>
+        <Image class="server-image" src="/dirt.png" alt="Dirt icon" width=64 height=64></Image>
+    </div>
+    <div style="flex-direction: column; flex:1;">
+        <div style="flex-direction: row;">
+            {server.name}
+            <span style="flex:1"></span>
+            {server.online ? `${server.players.length}/${server.maxPlayers}` : ""}
+            {server.online ? (
+                <Image class="server-status-image" src="/online.png" alt="online icon" height="16" width="20"/>
+            ) : (<Image class="server-status-image" src="/offline.png" alt="offline icon" height="16" width="20"/>)}
+        </div>
+        <div>
+            {server.online ? (<span class="server-motd">{server.motd}</span>) : (<span class="offline-text">Can't connect to server</span>)}
+        </div>
+    </div>
+</div>

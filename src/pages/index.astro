@@ -1,5 +1,5 @@
 ---
-import ServerList from '../components/table.astro';
+import ServerList from '../components/main_list.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -12,23 +12,32 @@ import Layout from '../layouts/Layout.astro';
 .flex-center {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	align-items: center;
+	/* justify-self: center; */
 }
 #main{
-	background-color: rgba(0, 0, 0, 0.493);
-	margin-top: 64px;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-top:4px;
 	margin-bottom: 64px;
 	padding-left: 64px;
 	padding-right: 64px;
+	padding-top: 4px;
+}
+.multiplayer-header{
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+	padding-top: calc(64px - 24px);
 }
 </style>
 <Layout>
-	<header>
-		murp
+	<header class="multiplayer-header">
+		Play Multiplayer
 	</header>
 	<div id="main" class="full flex-center">
+		<!-- <h1 style="width:fit-content">Loading...</h1> -->
 		<ServerList server:defer>
-			<h1 slot="fallback">Loading...</h1>
+			<h1 slot="fallback" style="width:fit-content">Loading...</h1>
 		</ServerList>
 	</div>
 	<footer>
